@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yasir Ibrahim Hasan — Network Security Engineer</title>
+<style>
+  :root{
+    --bg:#12151a;
+    --panel:#181d25;
+    --panel-2:#1e2530;
+    --line:#2a323f;
+    --text:#e8e6e0;
+    --muted:#8b93a1;
+    --accent:#d9a441;
+    --accent-dim:#8a6a2c;
+    --mono:'IBM Plex Mono', 'Courier New', monospace;
+    --sans:'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  ::selection{background:var(--accent); color:#12151a;}
+
+  .wrap{max-width:960px; margin:0 auto; padding:0 28px;}
+
+  .grid-bg{
+    position:fixed; inset:0; z-index:-1; opacity:0.5;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px;
+    -webkit-mask-image:radial-gradient(ellipse at top, black 0%, transparent 70%);
+    mask-image:radial-gradient(ellipse at top, black 0%, transparent 70%);
+  }
+
+  nav{
+    position:sticky; top:0; z-index:10;
+    background:rgba(18,21,26,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px;}
+  .logo{font-family:var(--mono); font-weight:600; letter-spacing:0.02em; font-size:15px;}
+  .logo span{color:var(--accent);}
+  .navlinks{display:flex; gap:22px; font-family:var(--mono); font-size:12.5px;}
+  .navlinks a{color:var(--muted);}
+  .navlinks a:hover{color:var(--text); text-decoration:none;}
+
+  header.hero{padding:88px 0 64px; position:relative;}
+  .eyebrow{
+    font-family:var(--mono); font-size:13px; color:var(--accent);
+    letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:''; width:8px; height:8px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 0 3px rgba(217,164,65,0.2);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+  h1{
+    font-size:clamp(34px, 5.2vw, 54px);
+    font-weight:700; letter-spacing:-0.01em; line-height:1.08;
+    max-width:16ch;
+  }
+  .role{
+    font-family:var(--mono); font-size:clamp(16px,2.2vw,20px);
+    color:var(--muted); margin-top:16px;
+  }
+  .role em{color:var(--accent); font-style:normal;}
+  .tagline{max-width:60ch; margin-top:22px; color:var(--text); font-size:16px; opacity:0.9;}
+  .hero-actions{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:13px; padding:11px 20px;
+    border:1px solid var(--accent); border-radius:3px; color:var(--accent);
+    transition:all .15s ease;
+  }
+  .btn:hover{background:var(--accent); color:#12151a; text-decoration:none;}
+  .btn.ghost{border-color:var(--line); color:var(--muted);}
+  .btn.ghost:hover{border-color:var(--muted); background:transparent; color:var(--text);}
+
+  .route{margin-top:60px; overflow-x:auto; padding-bottom:8px;}
+  .route svg{display:block; min-width:640px; width:100%; height:auto;}
+  .route-caption{font-family:var(--mono); font-size:11px; color:var(--muted); margin-top:10px; letter-spacing:0.04em;}
+
+  section{padding:52px 0; border-top:1px solid var(--line);}
+  .section-head{display:flex; align-items:baseline; gap:14px; margin-bottom:30px; flex-wrap:wrap;}
+  .section-num{font-family:var(--mono); color:var(--accent-dim); font-size:13px;}
+  h2{font-size:22px; font-weight:600; letter-spacing:-0.01em;}
+  .section-sub{font-family:var(--mono); font-size:12px; color:var(--muted); margin-left:auto;}
+
+  .about-text{max-width:66ch; color:var(--text); opacity:0.92; font-size:15.5px;}
+
+  .skills-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px;}
+  .skill-card{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:20px;}
+  .skill-card h3{font-family:var(--mono); font-size:13px; color:var(--accent); margin-bottom:12px; letter-spacing:0.02em;}
+  .skill-card ul{list-style:none; display:flex; flex-wrap:wrap; gap:8px;}
+  .skill-card li{font-size:12px; background:var(--panel-2); border:1px solid var(--line); padding:5px 10px; border-radius:3px; color:var(--muted); font-family:var(--mono);}
+
+  .personal-box{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:20px 22px; margin-top:16px;
+  }
+  .personal-box p{color:var(--muted); font-size:14px;}
+
+  .timeline{position:relative; padding-left:28px;}
+  .timeline::before{content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:linear-gradient(var(--accent), var(--line));}
+  .tl-item{position:relative; margin-bottom:38px;}
+  .tl-item:last-child{margin-bottom:0;}
+  .tl-item::before{content:''; position:absolute; left:-28px; top:5px; width:11px; height:11px; border-radius:50%; background:var(--bg); border:2px solid var(--accent);}
+  .tl-meta{font-family:var(--mono); font-size:12px; color:var(--muted); margin-bottom:4px;}
+  .tl-role{font-size:16.5px; font-weight:600;}
+  .tl-org{color:var(--accent); font-size:14px; margin-bottom:10px;}
+  .tl-desc{color:var(--muted); font-size:14px; max-width:66ch;}
+  .tl-desc ul{margin-top:4px; padding-left:18px;}
+  .tl-desc li{margin-bottom:4px;}
+
+  .cert-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;}
+  .cert-card{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; display:flex; flex-direction:column; gap:4px;}
+  .cert-card .name{font-weight:600; font-size:14.5px;}
+  .cert-card .issuer{font-family:var(--mono); font-size:12px; color:var(--muted);}
+
+  .course-cols{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; margin-top:8px;}
+  .course-cols h4{font-family:var(--mono); font-size:12.5px; color:var(--accent); margin-bottom:10px;}
+  .course-cols ul{list-style:none; color:var(--muted); font-size:14px;}
+  .course-cols li{margin-bottom:6px; padding-left:14px; position:relative;}
+  .course-cols li::before{content:'—'; position:absolute; left:0; color:var(--accent-dim);}
+
+  .edu-item{margin-bottom:22px;}
+  .edu-item:last-child{margin-bottom:0;}
+  .edu-degree{font-weight:600; font-size:15px;}
+  .edu-school{color:var(--accent); font-size:14px; margin-top:2px;}
+  .edu-meta{font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:2px;}
+
+  .lang-grid{display:flex; gap:16px; flex-wrap:wrap;}
+  .lang-card{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 20px; min-width:180px;}
+  .lang-card .name{font-weight:600; font-size:14.5px;}
+  .lang-card .level{font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:4px;}
+
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:680px;}
+  @media(max-width:560px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-card{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:18px;}
+  .contact-card .label{font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;}
+  .contact-card .value{font-family:var(--mono); font-size:14px; color:var(--text); word-break:break-word;}
+  .contact-card a{color:var(--text);}
+  .contact-card a:hover{color:var(--accent);}
+
+  footer{padding:32px 0 48px; border-top:1px solid var(--line);}
+  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  footer p{font-family:var(--mono); font-size:12px; color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">YIH<span>::</span>NETSEC</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#certs">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Currently: Network Security Engineer @ Arab Payment Services</div>
+    <h1>Yasir Ibrahim Hasan</h1>
+    <div class="role">Network Security Engineer <em>·</em> Baghdad, Iraq</div>
+    <p class="tagline">
+      I design, secure, and maintain enterprise network infrastructure — Cisco and Fortinet firewalls, SD-WAN,
+      IPSec VPNs, and high-availability data center environments — keeping production networks running at
+      99%+ uptime while defending against evolving threats.
+    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#contact">Get in touch</a>
+      <a class="btn ghost" href="#experience">View experience</a>
+    </div>
+
+    <div class="route">
+      <svg viewBox="0 0 900 90" xmlns="http://www.w3.org/2000/svg">
+        <line x1="40" y1="45" x2="860" y2="45" stroke="#2a323f" stroke-width="1.5"/>
+        <line x1="40" y1="45" x2="860" y2="45" stroke="#d9a441" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.5"/>
+        <g font-family="'IBM Plex Mono', monospace" font-size="10.5" fill="#8b93a1">
+          <circle cx="60" cy="45" r="6" fill="#12151a" stroke="#d9a441" stroke-width="2"/>
+          <text x="60" y="72" text-anchor="middle">2022 · FTTH SALES/TECH</text>
+          <circle cx="290" cy="45" r="6" fill="#12151a" stroke="#d9a441" stroke-width="2"/>
+          <text x="290" y="72" text-anchor="middle">2022 · NETWORK ENGINEER</text>
+          <circle cx="520" cy="45" r="6" fill="#12151a" stroke="#d9a441" stroke-width="2"/>
+          <text x="520" y="72" text-anchor="middle">2024 · CCNA + NSE4/5</text>
+          <circle cx="750" cy="45" r="6" fill="#d9a441" stroke="#d9a441" stroke-width="2"/>
+          <text x="750" y="72" text-anchor="middle" fill="#d9a441">2024–NOW · NETSEC ENGINEER</text>
+        </g>
+      </svg>
+      <div class="route-caption">// career progression — fiber, to networking, to network security</div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>About</h2>
+      <span class="section-sub">whoami</span>
+    </div>
+    <p class="about-text">
+      To apply and enhance my skills in networking and security within a dynamic organization that values
+      continuous learning and professional growth. I aim to contribute by designing, implementing, and
+      maintaining secure, high-availability network infrastructures. Through collaboration and innovation,
+      I strive to deliver reliable solutions that support business goals and improve operational efficiency.
+    </p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Skills</h2>
+      <span class="section-sub">stack --list</span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Firewalls & Security</h3>
+        <ul>
+          <li>Cisco FTD / FMC</li><li>Cisco ASA</li><li>FortiGate</li><li>Cisco ISE</li><li>IPSec VPN (IKEv1/v2)</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Routing & Switching</h3>
+        <ul>
+          <li>EIGRP</li><li>OSPF</li><li>BGP</li><li>RIP</li><li>STP / RSTP / MSTP</li><li>HSRP / VRRP</li><li>LACP / PAGP</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Architecture</h3>
+        <ul>
+          <li>SD-WAN</li><li>NAT</li><li>Policy-Based Routing</li><li>ACLs</li><li>High Availability / VPC</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Operations & Tools</h3>
+        <ul>
+          <li>PRTG</li><li>Dude Server</li><li>NOC Operations</li><li>IOS Upgrades</li><li>Site Assessments</li>
+        </ul>
+      </div>
+    </div>
+    <div class="personal-box">
+      <p>Effective personality, hard worker, active, ambitious, self-motivated, independent, and a fast learner. Strong team player able to maintain relationships with staff and clients at all levels, organize work across departments, and perform under pressure to meet deadlines.</p>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>Experience</h2>
+      <span class="section-sub">history --reverse</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-meta">JULY 2024 — PRESENT</div>
+        <div class="tl-role">Network Security Engineer</div>
+        <div class="tl-org">Arab Payment Services, Baghdad</div>
+        <div class="tl-desc">
+          <ul>
+            <li>Configure, manage, and troubleshoot Cisco switches, routers, and firewalls across Production, Hosting, UAT, and DR environments.</li>
+            <li>Manage Fortinet firewalls (FGT60E, FGT100F, FGT600E) and Cisco firewalls (FTDs via FMC and ASA).</li>
+            <li>Monitor FortiGate and Cisco FTD firewalls for security threats, attacks, and vulnerabilities.</li>
+            <li>Configure Cisco ISE for centralized access policy enforcement and identity management.</li>
+            <li>Configure IPSec VPNs (IKEv1/IKEv2) for secure site-to-site connectivity, and SD-WAN across multiple ISPs for load balancing and traffic shaping.</li>
+            <li>Achieved high availability in the production data center via VPC domain/stacking, HSRP, and Fortinet HA.</li>
+            <li>Maintained 99%+ network uptime through proactive monitoring and troubleshooting; managed four data center environments end-to-end.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-meta">AUG 2022 — FEB 2024 · 1 YR 7 MOS</div>
+        <div class="tl-role">Network Engineer</div>
+        <div class="tl-org">Morabaa Software Solutions, Baghdad</div>
+        <div class="tl-desc">
+          <ul>
+            <li>Designed and configured L2 & L3 networks from the ground up for single-site and multi-site deployments.</li>
+            <li>Deployed and integrated end-user devices into corporate networks; installed and configured SQL Server databases with remote branch connectivity.</li>
+            <li>Set up and optimized Wi-Fi networks for corporate clients using Grandstream and Ubiquiti UniFi.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-meta">JUL 2022 — FEB 2023 · 8 MOS</div>
+        <div class="tl-role">Sales & Technician (FTTH)</div>
+        <div class="tl-org">Hala FTTH, Baghdad</div>
+        <div class="tl-desc">
+          <ul>
+            <li>Promoted and sold fiber-optic internet services to companies; installed FTTH solutions ensuring optimal performance.</li>
+            <li>Installed and configured ONT/ONU devices from multiple vendors; performed fiber-optic cabling, splicing, and termination.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>Education</h2>
+      <span class="section-sub">background --show</span>
+    </div>
+    <div class="edu-item">
+      <div class="edu-degree">Bachelor's Degree, Computer Networks Engineering</div>
+      <div class="edu-school">Al-Nahrain University — College of Information Engineering (COIE)</div>
+      <div class="edu-meta">2020 – 2024</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-degree">General Certificate of Secondary Education</div>
+      <div class="edu-school">Al-Razi Private School</div>
+      <div class="edu-meta">2019</div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2>Certifications</h2>
+      <span class="section-sub">credentials --verify</span>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="name">CCNA — Routing & Switching</div>
+        <div class="issuer">Cisco · 2021</div>
+      </div>
+      <div class="cert-card">
+        <div class="name">Fortinet NSE4</div>
+        <div class="issuer">FortiOS 7.6 Administrator · 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="name">Fortinet NSE5</div>
+        <div class="issuer">Certified in Cloud Security · 2026</div>
+      </div>
+    </div>
+
+    <div class="course-cols">
+      <div>
+        <h4>CISCO COURSES</h4>
+        <ul>
+          <li>Cisco FTD Course</li>
+          <li>CCNP – Enterprise</li>
+          <li>CCNA Course</li>
+        </ul>
+      </div>
+      <div>
+        <h4>FORTINET COURSES</h4>
+        <ul>
+          <li>NSE 5 – Secure Wireless LAN Administrator</li>
+          <li>NSE 5 – FortiSwitch Administrator</li>
+          <li>NSE 6 – FortiAnalyzer 7.6 Administrator</li>
+          <li>NSE 6 – FortiManager Administrator</li>
+        </ul>
+      </div>
+      <div>
+        <h4>CLOUDFLARE / IMPERVA</h4>
+        <ul>
+          <li>Cloudflare WAF Course</li>
+          <li>Cloud Web Application Security Course</li>
+        </ul>
+      </div>
+      <div>
+        <h4>COMPTIA / LINUX</h4>
+        <ul>
+          <li>CompTIA A+: Software, Hardware and Maintenance</li>
+          <li>Ubuntu Linux Fundamentals</li>
+          <li>Linux Server Administration Basics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="languages">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <h2>Languages</h2>
+      <span class="section-sub">locale --list</span>
+    </div>
+    <div class="lang-grid">
+      <div class="lang-card">
+        <div class="name">Arabic</div>
+        <div class="level">Mother language</div>
+      </div>
+      <div class="lang-card">
+        <div class="name">English</div>
+        <div class="level">Very good speaking and writing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">07</span>
+      <h2>Contact</h2>
+      <span class="section-sub">connect --secure</span>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="label">Email</div>
+        <div class="value"><a href="mailto:yasir@yourdomain.com">yasir@yourdomain.com</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="label">Phone</div>
+        <div class="value">+964 773 256 5039</div>
+      </div>
+      <div class="contact-card">
+        <div class="label">WhatsApp</div>
+        <div class="value">+964 786 440 4000</div>
+      </div>
+      <div class="contact-card">
+        <div class="label">LinkedIn</div>
+        <div class="value"><a href="https://www.linkedin.com/in/yasir-ibrahim" target="_blank" rel="noopener">linkedin.com/in/yasir-ibrahim</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="label">Credly</div>
+        <div class="value"><a href="https://www.credly.com" target="_blank" rel="noopener">credly.com</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="label">Location</div>
+        <div class="value">Basra, Iraq</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Yasir Ibrahim Hasan</p>
+    <p>yourdomain.com</p>
+  </div>
+</footer>
+
+</body>
+</html>
